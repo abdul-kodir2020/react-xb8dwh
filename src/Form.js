@@ -10,15 +10,25 @@ class Form extends React.Component {
       liste: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteLine = this.deleteLine.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const newListe = [this.state.input, ...this.state.liste];
+    const newInput = {
+      id:String(Math.floor(Math.random() * 100000)),
+      text: this.state.input
+    }
+    const newListe = [newInput, ...this.state.liste];
     this.setState({ liste: newListe });
     this.setState({ input: '' });
   }
-
+  
+  deleteLine(e){
+    const newListe = this.state.liste.filter(lis => lis.id !== (e.target.getAttribute('name').substring(5)))
+    this.setState({liste: newListe})
+    console.log(newListe)
+  }
   render() {
     return (
       <div>
@@ -32,7 +42,7 @@ class Form extends React.Component {
           <button>Submit</button>
         </form>
         <p>{this.state.input}</p>
-        <Liste liste={this.state.liste} />
+        <Liste liste={this.state.liste} delete={this.deleteLine}/>
       </div>
     );
   }

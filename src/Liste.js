@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Liste extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return this.props.liste.map((element, i) => <p>{element}</p>);
-  }
+function Liste(props){
+  
+  return props.liste.map((element, i) => (
+    <p onClick={props.delete} name={'ligne'+element.id}>
+      {element.text}
+    </p>
+  ));
 }
+
 
 export default Liste;
